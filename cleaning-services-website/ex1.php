@@ -91,117 +91,87 @@
     </div>
     <!-- Header End -->
 
-    <?php 
-	
-$showAlert = false; 
-$showError = false; 
-$exists=false; 
-	
-if($_SERVER["REQUEST_METHOD"] == "POST") { 
-	
-	// Include file which makes the 
-	// Database Connection. 
-	include 'connect.php'; 
-	
-	$username = $_POST["username"]; 
-	$password = $_POST["password"]; 
-    $cpassword=$_POST["cpassword"];			
-	
-	$sql = "Select * from admin where username='$username'"; 
-	
-	$result = mysqli_query($connect, $sql); 
-	
-	$num = mysqli_num_rows($result); 
-	
-	// This sql query is use to check if 
-	// the username is already present 
-	// or not in our Database 
-	if($num == 0) { 
-		if(($password == $cpassword) && $exists==false) { 
-	
-			$hash = password_hash($password, 
-								PASSWORD_DEFAULT); 
-				
-			// Password Hashing is used here. 
-			$sql = "INSERT INTO `admin` ( `username`, 
-				`password`, `date`) VALUES ('$username', 
-				'$hash', current_timestamp())"; 
-	
-			$result = mysqli_query($connect, $sql); 
-	
-			if ($result) { 
-				$showAlert = true; 
-			} 
-		} 
-		else { 
-			$showError = "Passwords do not match"; 
-		}	 
-	}// end if 
-if($num>0) 
-{ 
-	$exists="Username not available"; 
+    <?php
+$showAlert = false;
+$showError = false;
+$exists = false;
+
+if (isset($_POST['signup'])) {
+    include 'connect.php';
+    echo "<script>alert('yes');</script>";
+    $username = mysqli_real_escape_string($connect, $_POST["username"]);
+    $password = mysqli_real_escape_string($connect, $_POST["password"]);
+    $cpassword = mysqli_real_escape_string($connect, $_POST["cpassword"]);
+
+    // Validate username (you can add more validation as needed)
+    if (empty($username)) {
+        $showError = "Username cannot be empty";
+    } else {
+        $sql = "SELECT * FROM admin WHERE username='$username'";
+        $result = mysqli_query($connect, $sql);
+        $num = mysqli_num_rows($result);
+
+        if ($num == 0) {
+            if ($password == $cpassword) {
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $sql = "INSERT INTO `admin` (`username`, `password`, `date`) VALUES ('$username', '$hash', current_timestamp())";
+                $result = mysqli_query($connect, $sql);
+
+                if ($result) {
+                    $showAlert = true;
+                }
+            } else {
+                $showError = "Passwords do not match";
+            }
+        } else {
+            $exists = "Username not available";
+        }
+    }
+    mysqli_close($connect);
 }
-}//end if 
-?> 
-	
-<!doctype html> 
-	
-<html lang="en"> 
+?>
+<!doctype html>
+<html lang="en">
 
-<head> 
-	
-	<!-- Required meta tags --> 
-	<meta charset="utf-8"> 
-	<meta name="viewport" content= 
-		"width=device-width, initial-scale=1, 
-		shrink-to-fit=no"> 
-	
-</head> 
-	
-<body> 
-	
-<?php 
-	
-	if($showAlert) { 
-	
-		echo ' <div class="alert alert-success 
-			alert-dismissible fade show" role="alert"> 
-	
-			<strong>Success!</strong> Your account has been  successfully  
-			created and you can now login. 
-			<button type="button" class="close"
-				data-dismiss="alert" aria-label="Close"> 
-				<span aria-hidden="true">×</span> 
-			</button> 
-		</div> '; 
-	} 
-	
-	if($showError) { 
-	
-		echo ' <div class="alert alert-danger 
-			alert-dismissible fade show" role="alert"> 
-		<strong>Error!</strong> '. $showError.'
-	
-	<button type="button" class="close"
-			data-dismiss="alert aria-label="Close"> 
-			<span aria-hidden="true">×</span> 
-	</button> 
-	</div> '; 
-} 
-		
-	if($exists) { 
-		echo ' <div class="alert alert-danger 
-			alert-dismissible fade show" role="alert"> 
-	
-		<strong>Error!</strong> '. $exists.'
-		<button type="button" class="close"
-			data-dismiss="alert" aria-label="Close"> 
-			<span aria-hidden="true">×</span> 
-		</button> 
-	</div> '; 
-	} 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 
-?> 
+<body>
+    <?php
+    if ($showAlert) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> Your account has been successfully created, and you can now login.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>';
+    }
+
+    if ($showError) {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> ' . $showError . '
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>';
+    }
+
+    if ($exists) {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> ' . $exists . '
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>';
+    }
+    ?>
+</body>
+
+</html>
+
 	
 <div class="container my-4 "> 
 	
@@ -231,7 +201,7 @@ if($num>0)
 			</small> 
 		</div>	 
 	
-		<button type="submit" class="btn btn-primary"></a>
+		<button type="submit" name="signup" class="btn btn-primary">
 		SignUp 
 		</button> 
 	</form> 

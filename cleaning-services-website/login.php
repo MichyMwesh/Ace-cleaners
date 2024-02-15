@@ -87,31 +87,53 @@
     <!-- Header End -->
 
 
-<?php
+    <?php
 include 'joinet.php';
-if(isset($_POST['LOGIN'])) {
 
-$username=$_POST["username"];
-$password=$_POST["password"];
+if (isset($_POST['LOGIN'])) {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
 
-$sql="SELECT *FROM  user WHERE username=? AND password=?";
+    // Hash the password using a strong hashing algorithm (e.g., bcrypt)
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-$st=mysqli_stmt_init($conni); 
-mysqli_stmt_prepare($st,$sql);  
-mysqli_stmt_bind_param ($st,"ss",$username,$password);
-mysqli_stmt_execute($st);
+    $sql = "SELECT * FROM users WHERE username=?";
+    $st = mysqli_stmt_init($conni);
 
+    if (mysqli_stmt_prepare($st, $sql)) {
+        mysqli_stmt_bind_param($st, "s", $username);
+        mysqli_stmt_execute($st);
 
-$result=mysqli_stmt_get_result($st);
-if(!mysqli_fetch_assoc($result)){
-    echo"incorrect";
-}
-else{
-    header("location: index1.html?success");
-    exit();
-}
+        $result = mysqli_stmt_get_result($st);
+
+        // Check the number of rows returned
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+
+            // Verify the hashed password
+            if (password_verify($password, $row['password'])) {
+                // Password is correct, redirect to success page
+               ?>
+               <script>
+                location.replace("index1.html?success");
+                </script>
+               <?php
+                exit();
+            } else {
+                echo "Incorrect password";
+            }
+        } else {
+            echo "User not found";
+        }
+    } else {
+        echo "Error preparing statement: " . mysqli_error($conni);
+    }
+
+    mysqli_stmt_close($st);
+    mysqli_close($conni);
 }
 ?>
+
         
 <!doctype html> 
 <html lang="en"> 

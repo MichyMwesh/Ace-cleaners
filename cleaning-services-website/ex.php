@@ -78,7 +78,7 @@
 
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
-                        <a href="login.php"><button type="button" class="btn btn-outline-info">LOGIN</button></a>
+                        <a href="login.php"><button type="button" name="signup" class="btn btn-outline-info">LOGIN</button></a>
                     </div>
                 </nav>
             </div>
@@ -87,62 +87,46 @@
     <!-- Header End -->
 
 
-<?php 
-	
-$showAlert = false; 
-$showError = false; 
-$exists=false; 
-	
-if($_SERVER["REQUEST_METHOD"] == "POST") { 
-	
-	// Include file which makes the 
-	// Database Connection. 
-	include 'dbconnect.php'; 
-	
-	$username = $_POST["username"]; 
-	$password = $_POST["password"]; 
-	$cpassword = $_POST["cpassword"]; 
-			
-	
-	$sql = "Select * from users where username='$username'"; 
-	
-	$result = mysqli_query($conn, $sql); 
-	
-	$num = mysqli_num_rows($result); 
-	
-	// This sql query is use to check if 
-	// the username is already present 
-	// or not in our Database 
-	if($num == 0) { 
-		if(($password == $cpassword) && $exists==false) { 
-	
-			$hash = password_hash($password, 
-								PASSWORD_DEFAULT); 
-				
-			// Password Hashing is used here. 
-			$sql = "INSERT INTO `users` ( `username`, 
-				`password`, `date`) VALUES ('$username', 
-				'$hash', current_timestamp())"; 
-	
-			$result = mysqli_query($conn, $sql); 
-	
-			if ($result) { 
-				$showAlert = true; 
-			} 
-		} 
-		else { 
-			$showError = "Passwords do not match"; 
-		}	 
-	}// end if 
-	
-if($num>0) 
-{ 
-	$exists="Username not available"; 
-} 
-	
-}//end if 
-	
-?> 
+    <?php
+$showAlert = false;
+$showError = false;
+$exists = false;
+
+if (isset($_POST['signup'])) {
+    include 'dbconnect.php';
+
+    $username = mysqli_real_escape_string($conn, $_POST["username"]);
+    $password = mysqli_real_escape_string($conn, $_POST["password"]);
+    $cpassword = mysqli_real_escape_string($conn, $_POST["cpassword"]);
+
+    // Validate inputs (you can add more validation as needed)
+    if (empty($username) || empty($password) || empty($cpassword)) {
+        $showError = "All fields are required";
+    } elseif ($password != $cpassword) {
+        $showError = "Passwords do not match";
+    } else {
+        $sql = "SELECT * FROM users WHERE username='$username'";
+        $result = mysqli_query($conn, $sql);
+        $num = mysqli_num_rows($result);
+
+        if ($num == 0) {
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $insertSql = "INSERT INTO `users` (`username`, `password`, `cpassword`,`date`) VALUES ('$username', '$hash','$cpassword',current_timestamp())";
+            $insertResult = mysqli_query($conn, $insertSql);
+
+            if ($insertResult) {
+                $showAlert = true;
+            } else {
+                $showError = "Error inserting user into database".mysqli_error($conn);
+            }
+        } else {
+            $exists = "Username not available";
+        }
+    }
+
+    mysqli_close($conn);
+}
+?>
 	
 <!doctype html> 
 	
@@ -231,7 +215,7 @@ if($num>0)
 			</small> 
 		</div>	 
 	
-		<button type="submit" class="btn btn-outline-info"></a>
+		<button type="submit" name="signup" class="btn btn-outline-info"></a>
 		SignUp 
 		</button> 
 	</form> 

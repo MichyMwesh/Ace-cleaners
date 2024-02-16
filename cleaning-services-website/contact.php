@@ -29,18 +29,34 @@
 <body>
 
 <?php
-include 'dbconnect.php';
+include("dbconnect.php");
 if(isset($_POST['SEND'])) {
-$name=$_POST["name"];
-$email=$_POST["email"];
-$subject=$_POST["subject"]; 
-$message=$_POST["message"];      
-$query="INSERT INTO contact (name,email,subject,message) 
-VALUES (?,?,?,?)";
-$stmt=mysqli_stmt_init($conn); 
-mysqli_stmt_prepare($stmt,$query);
-mysqli_stmt_bind_param ($stmt,"ssss",$name,$email,$subject,$message);
-mysqli_stmt_execute($stmt);
+    echo '<script>alert("executing...");</script>';
+    
+    // Retrieve form data
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $subject = $_POST["subject"];
+    $message = $_POST["message"];
+
+    // SQL query to insert data into the 'contact' table
+    $query = "INSERT INTO contact (name, email, subject, message) VALUES (?, ?, ?, ?)";
+    
+    // Initialize and prepare a statement
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, $query);
+
+    // Bind parameters and execute the statement
+    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $subject, $message);
+    mysqli_stmt_execute($stmt);
+
+    // Close the statement
+    mysqli_stmt_close($stmt);
+
+    // Debugging: Display form data and any potential MySQL error
+
+    // Display success message using JavaScript
+    echo "<script>alert('Data has been successfully submitted!');</script>";
 }
 ?>
     <!-- Header Start -->
@@ -116,37 +132,36 @@ mysqli_stmt_execute($stmt);
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-7 mb-5 mb-lg-0">
-                    <div class="contact-form">
-                        <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                            <div class="form-row">
-                                <div class="col-sm-6 control-group">
-                                    <input type="text" class="form-control p-4" id="name" name="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                                <div class="col-sm-6 control-group">
-                                    <input type="email" class="form-control p-4" id="email" name="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <input type="text" class="form-control p-4" id="subject"  name="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+            <div class="col-lg-7 mb-5 mb-lg-0">
+                <div class="contact-form">
+                    <form name="sentMessage" action="" method="POST" id="" novalidate="novalidate">
+                        <div class="form-row">
+                            <div class="col-sm-6 control-group">
+                                <input type="text" class="form-control p-4" id="name" name="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
                                 <p class="help-block text-danger"></p>
                             </div>
-                            <div class="control-group">
-                                <textarea class="form-control p-4" rows="6" id="message" name="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                            <div class="col-sm-6 control-group">
+                                <input type="email" class="form-control p-4" id="email" name="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
                                 <p class="help-block text-danger"></p>
                             </div>
-                            <div>
-                                <button class="btn btn-secondary btn-block py-3 px-5" type="submit" name="SEND" id="sendMessageButton">Send Message</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="control-group">
+                            <input type="text" class="form-control p-4" id="subject"  name="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <textarea class="form-control p-4" rows="6" id="message" name="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div>
+                            <button class="btn btn-secondary btn-block py-3 px-5" type="submit" name="SEND" id="hsendMessageButton">Send Message</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
     <!-- Contact End -->
 
 

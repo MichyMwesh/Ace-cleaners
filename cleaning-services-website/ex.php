@@ -152,7 +152,10 @@ if (isset($_POST['signup'])) {
 			alert-dismissible fade show" role="alert"> 
 	
 			<strong>Success!</strong> Your account has been  successfully  
-			created and you can now login. 
+			created and you can now login.
+            <script>
+                location.replace("login.php?success");
+                </script> 
 			<button type="button" class="close"
 				data-dismiss="alert" aria-label="Close"> 
 				<span aria-hidden="true">×</span> 
@@ -184,6 +187,7 @@ if (isset($_POST['signup'])) {
 		</button> 
 	</div> '; 
 	} 
+
 
 ?> 
 	

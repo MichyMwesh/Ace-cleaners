@@ -63,7 +63,7 @@
 
                                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                     <div class="navbar-nav ml-auto">
-                                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                                        <a href="index.php" class="nav-item nav-link active">Home</a>
                                         <a href="about.html" class="nav-item nav-link">About</a>
                                         <a href="service.html" class="nav-item nav-link">Service</a>
                                         <a href="portfolio.html" class="nav-item nav-link">Project</a>
@@ -77,7 +77,43 @@
                         </div>
                     </div>
 
-                    
+
+                    <?php
+
+     include  ("dconn.php");
+     
+    if(isset($_POST['SUBMIT'])) {
+    echo '<script>alert("executing...");</script>';
+    
+    // Retrieve form data
+    $name = $_POST["name"];
+    $number = $_POST["number"];
+    $service = $_POST["service"];
+    $county = $_POST["county"];
+    $schedule =$_POST["schedule"];
+    $rooms =$_POST["rooms"];
+    $bathrooms =$_POST["bathrooms"];
+
+    // SQL query to insert data into the 'category' table
+    $query = "INSERT INTO category (name, email, service, county, schedule, rooms, bathrooms) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    
+    // Initialize and prepare a statement
+    $stmt = mysqli_stmt_init($conne);
+    mysqli_stmt_prepare($stmt, $query);
+
+    // Bind parameters and execute the statement
+    mysqli_stmt_bind_param($stmt, "sssssss", $name, $email, $service, $county, $schedule, $rooms, $bathrooms);
+    mysqli_stmt_execute($stmt);
+
+    // Close the statement
+    mysqli_stmt_close($stmt);
+
+    // Debugging: Display form data and any potential MySQL error
+
+    // Display success message using JavaScript
+    echo "<script>alert('Data has been successfully submitted!');</script>";
+}
+?>
 
                     
                     <div class="hero row align-items-center">
@@ -91,11 +127,11 @@
                             <div class="form">
                                 <h3>Choose A Category</h3>
                                 <form>
-                                    <input class="form-control" type="text"    maxlength="20"      name="name" placeholder="Your Name">
-                                    <input class="form-control" type="number" maxlength="10" name="number" placeholder="Mobile Number">
+                                    <input class="form-control" type="text"  maxlength="15"  name="name" placeholder="Name" required>
+                                    <input class="form-control" type="number" maxlength="10" name="number" placeholder="Phone Number" required>
                                     <div class="control-group">
                                         <select class="custom-select">
-                                            <option selected>Choose a service</option>
+                                            <option selected required>Choose a service</option>
                                             <option value="1">House Mopping</option>
                                             <option value="2">Dishes Cleaning</option>
                                             <option value="3">Clothes  Cleaning</option>
@@ -105,7 +141,7 @@
 
                                     <div class="control-group">
                                         <select class="custom-select">
-                                            <option selected>Choose A County</option>
+                                            <option selected required>Choose A County</option>
                                             <option value="1">Nairobi</option>
                                             <option value="2">Kajiado</option>
                                             <option value="3">Kiambu</option>
@@ -115,7 +151,7 @@
 
                                     <div class="control-group">
                                         <select class="custom-select">
-                                            <option selected>Choose A Schedule</option>
+                                            <option selected required>Choose A Schedule</option>
                                             <option value="1">One-time</option>
                                             <option value="2">Daily</option>
                                             <option value="3">Weekly</option>
@@ -125,7 +161,7 @@
 
                                     <div class="control-group">
                                         <select class="custom-select">
-                                            <option selected>Choose Number Of Rooms</option>
+                                            <option selected required>Choose Number Of Rooms</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -135,18 +171,16 @@
 
                                     <div class="control-group">
                                         <select class="custom-select">
-                                            <option selected>Choose Number Of Bathrooms</option>
+                                            <option selected required>Choose Number Of Bathrooms</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="3">4</option>
                                         </select>
                                     </div>
-                                    <textarea class="form-control" placeholder="minimum amount is sh400"></textarea>
+                                    <textarea class="form-control" placeholder="minimum amount is sh400" required></textarea>
 
-                                    <div class="text-info p-3">
-                                <button type="button" class="btn btn-info">SUBMIT</button>
-                                    </div>
+                                    <div><button class="btn" type="submit">SUBMIT</button></div>
 
                                 </form>
                             </div>

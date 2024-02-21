@@ -67,7 +67,9 @@
                                         <a href="about.html" class="nav-item nav-link">About</a>
                                         <a href="service.html" class="nav-item nav-link">Service</a>
                                         <a href="portfolio.html" class="nav-item nav-link">Project</a>
-                                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                                       
+
+                                        <a href="cont.php" class="nav-item nav-link">Contact</a>
                                        
                                         </div>
                                         <a href="logout.php"><button type="button" class="btn btn-info">LOGOUT</button></a>
@@ -80,6 +82,38 @@
             </div>
             
             
+            <?php
+
+     include("dbconnect.php");
+if(isset($_POST['SEND'])) {
+    echo '<script>alert("executing...");</script>';
+    
+    // Retrieve form data
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $subject = $_POST["subject"];
+    $message = $_POST["message"];
+
+    // SQL query to insert data into the 'cdb' table
+    $query = "INSERT INTO cdb (name, email, subject, message) VALUES (?, ?, ?, ?)";
+    
+    // Initialize and prepare a statement
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, $query);
+
+    // Bind parameters and execute the statement
+    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $subject, $message);
+    mysqli_stmt_execute($stmt);
+
+    // Close the statement
+    mysqli_stmt_close($stmt);
+
+    // Debugging: Display form data and any potential MySQL error
+
+    // Display success message using JavaScript
+    echo "<script>alert('Data has been successfully submitted!');</script>";
+}
+?>
            
 
             <!-- Contact Start -->
@@ -161,19 +195,19 @@
                                 <form>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="Your Name" required="required" />
+                                            <input type="text" class="form-control" name="name" placeholder="Your Name" required="required" />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="email" class="form-control" placeholder="Your Email" required="required" />
+                                            <input type="email" class="form-control" name="email" placeholder="Your Email" required="required" />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Subject" required="required" />
+                                        <input type="text" class="form-control" name="subject" placeholder="Subject" required="required" />
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="6" placeholder="Message" required="required" ></textarea>
+                                        <textarea class="form-control" rows="6"  name="message" placeholder="Message" required="required" ></textarea>
                                     </div>
-                                    <div><button class="btn" type="submit">Send Message</button></div>
+                                    <div><button class="btn" type="submit">SEND</button></div>
                                 </form>
                             </div>
                         </div>

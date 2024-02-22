@@ -84,7 +84,7 @@
             
             <?php
 
-     include("dbconnect.php");
+     include("dconn.php");
 if(isset($_POST['SEND'])) {
     echo '<script>alert("executing...");</script>';
     
@@ -95,10 +95,10 @@ if(isset($_POST['SEND'])) {
     $message = $_POST["message"];
 
     // SQL query to insert data into the 'cdb' table
-    $query = "INSERT INTO cdb (name, email, subject, message) VALUES (?, ?, ?, ?)";
+    $query = "INSERT INTO contact (name, email, subject, message) VALUES (?, ?, ?, ?)";
     
     // Initialize and prepare a statement
-    $stmt = mysqli_stmt_init($conn);
+    $stmt = mysqli_stmt_init($conne);
     mysqli_stmt_prepare($stmt, $query);
 
     // Bind parameters and execute the statement
@@ -192,7 +192,7 @@ if(isset($_POST['SEND'])) {
                         </div>
                         <div class="col-md-6">
                             <div class="contact-form">
-                                <form>
+                                <form method="POST">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control" name="name" placeholder="Your Name" required="required" />
@@ -207,7 +207,7 @@ if(isset($_POST['SEND'])) {
                                     <div class="form-group">
                                         <textarea class="form-control" rows="6"  name="message" placeholder="Message" required="required" ></textarea>
                                     </div>
-                                    <div><button class="btn" type="submit">SEND</button></div>
+                                    <div><button class="btn" type="submit" name="SEND">SEND</button></div>
                                 </form>
                             </div>
                         </div>

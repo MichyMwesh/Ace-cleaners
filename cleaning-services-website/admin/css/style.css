@@ -39,7 +39,7 @@ a:focus {
     width: 100%;
     max-width: 1366px;
     margin: 0 auto;
-    background: #ffffff;
+    background: transparent;
 }
 
 .back-to-top {
@@ -76,7 +76,7 @@ a:focus {
     position: relative;
     width: 100%;
     padding: 15px 0 0 0;
-    background: #00539C;
+    background: #009c1a;
 }
 
 .header.home {
@@ -1679,6 +1679,7 @@ a:focus {
     font-size: 18px;
     text-transform: uppercase;
     background: #FFD662;
+    opacity: .9;
     border-radius: 5px;
     transition: .3s;
 }

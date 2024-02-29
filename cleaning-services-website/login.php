@@ -163,6 +163,7 @@ if (isset($_POST['LOGIN'])) {
     </div> 
 
     <button type="submit" class=" btn btn-outline-info" name="LOGIN">LOGIN</button> 
+    
     <p>Do you have an account?</p>
     <a class="btn-primary" href="ex.php">Register</a>
 </form> 

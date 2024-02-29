@@ -26,7 +26,7 @@
     <body>
         <div class="wrapper">
             <!-- Header Start -->
-            <div class="header bg-success">
+            <div class="header bg-primary">
                 <div class="container-fluid">
                     <div class="header-top row align-items-center">
                         <div class="col-lg-3">
@@ -107,8 +107,9 @@ if (isset($_POST['submit'])) {
         mysqli_stmt_close($stmt);
 
         // Display success message using JavaScript
-        echo "<script>alert('Data has been successfully submitted!');</script>";
-    } else {
+        echo "<script>alert('Data has been  submitted successfully!');</script>";
+} 
+else {
         // Display an error message if the statement preparation fails
         echo "<script>alert('Error: Unable to prepare SQL statement.');</script>";
         echo mysqli_error($conne);
@@ -116,22 +117,49 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
+
                     
                     <div class="hero row align-items-center">
-                        <div class="col-md-7">
-                            <h2 class="text-primary">Best & Affordable</h2>
-                            <h2 class="text-info"><span>Cleaning</span> Services </h2>
-                            <p></p>
+                        <div class="col-md-7"> 
+
+                        <h2 class="text-warning">BEST & AFFORDABLE</h2>
+                            <h2 class="text-dark">
+                                <span class="text-warning">CLEANING SERVICES</span> 
+                            </h2>
+                            
                       
                         </div>
                         <div class="col-md-5">
                             <div class="form">
                                 <h3>Choose A Category</h3>
-                                <form action="#" method="POST">
-                                <input class="form-control" type="text"  maxlength="15"  name="name" placeholder="Name" required>
-                                    <input class="form-control" type="text" name="email" placeholder="Email" required>
-                                    <input class="form-control" type="number" maxlength="10" name="number" placeholder="Phone Number" required>
+                                <form action="#" method="POST" onsubmit="validateMobileNumber()">
+
+                                    <script>
+                                        function lettersOnly(input){
+                                            var regex = /[^a-z]/gi;
+                                            input.value= input.value.replace(regex, "");
+                                        }
+                                    </script>
+   
+   <script>
+                  function validMobileNumber(number) {
+                 let regex = /((07)|((\+|00)447)){1}[0-9]{9}\b/,
+                 result = regex.test(number);
+                console.log(number, result);
+                   return result;
+}
+              </script> 
+
+
+
+
+                                <input class="form-control form-text" type="text"  maxlength="15"  name="name" placeholder="Name" onkeyup="lettersOnly (this)" required>
+                                    <input class="form-control" type="email" name="email" placeholder="Email" required>
+                            
+                                   
+                                    <input class="form-control" type="tel" min="1" max="10" maxlength="10" name="number" placeholder="+07..." required>             
                                     <div class="control-group">
+
                                         <select class="custom-select" name="service">
                                             <option selected required>Choose a service</option>
                                             <option value="1">House Mopping</option>
@@ -168,6 +196,12 @@ if (isset($_POST['submit'])) {
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="3">4</option>
+                                            <option value="3">5</option>
+                                            <option value="3">6</option>
+                                            <option value="3">7</option>
+                                            <option value="3">8</option>
+                                            <option value="3">9</option>
+                                            <option value="3">10</option>
                                         </select>
                                     </div>
 
@@ -178,11 +212,36 @@ if (isset($_POST['submit'])) {
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="3">4</option>
+                                            <option value="3">5</option>
+                                            <option value="3">6</option>
+                                            <option value="3">7</option>
+                                            <option value="3">8</option>
+                                            <option value="3">9</option>
+                                            <option value="3">10</option>
                                         </select>
                                     </div>
-                                    <textarea class="form-control" placeholder="minimum amount is sh400" required></textarea>
+                               
 
-                                    <div><button class="btn" type="submit" name="submit">SUBMIT</button></div>
+                                    <div class="control-group">
+                                        <select class="custom-select" name="bathroom">
+                                            <option selected required>Choose Number Of Living Rooms</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="3">4</option>
+                                            <option value="3">5</option>
+                                            <option value="3">6</option>
+                                            <option value="3">7</option>
+                                            <option value="3">8</option>
+                                            <option value="3">9</option>
+                                            <option value="3">10</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                
+                                        <button class="control-group btn btn-warning" type="submit" name="submit">SUBMIT</button>
+                                    </div>
 
                                 </form>
                             </div>

@@ -218,7 +218,7 @@ if (isset($_POST['signup'])) {
 			
 			</small> 
 		</div>	 
-	
+        <p id="message">Password is <span id="strength"></span></p>
 		<button type="submit" name="signup" class="btn btn-outline-info"></a>
 		SignUp 
 		</button> 
@@ -302,6 +302,33 @@ if (isset($_POST['signup'])) {
  <!-- Back to Top -->
  <a href="#" class="btn btn-primary px-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
+ <script>
+
+var pass =document.getElementById("password");
+var pass =document.getElementById("confirmpassword");
+var pass =document.getElementById("strength");
+
+pass.addEventListener('input', () =>{
+if(pass.value.length > 0){
+msg.style.display ="block"
+}
+else{
+msg.style.display ="none";
+}
+if(pass.value.length < 4)
+{
+str.innerHTML ="weak";
+pass.style.borderColor ="#"
+}
+else if(pass.value.length >=4 && pass.value.length <8){
+    str.innerHTML ="medium";
+}
+elseif(pass.value.length >=8)
+{
+    str.innerHTML ="strong";
+}
+})
+</script>
 
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

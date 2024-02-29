@@ -26,7 +26,7 @@
     <body>
         <div class="wrapper">
             <!-- Header Start -->
-            <div class="header bg-success">
+            <div class="header bg-primary">
                 <div class="container-fluid">
                     <div class="header-top row align-items-center">
                         <div class="col-lg-3">
@@ -63,7 +63,7 @@
 
                                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                     <div class="navbar-nav ml-auto">
-                                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                                        <a href="index.php" class="nav-item nav-link active">Home</a>
                                         <a href="about.html" class="nav-item nav-link">About</a>
                                         <a href="service.html" class="nav-item nav-link">Service</a>
                                         <a href="portfolio.html" class="nav-item nav-link">Project</a>
@@ -95,7 +95,7 @@ if(isset($_POST['SEND'])) {
     $message = $_POST["message"];
 
     // SQL query to insert data into the 'cdb' table
-    $query = "INSERT INTO contact (name, email, subject, message) VALUES (?, ?, ?, ?)";
+    $query = "INSERT INTO cdb (name, email, subject, message) VALUES (?, ?, ?, ?)";
     
     // Initialize and prepare a statement
     $stmt = mysqli_stmt_init($conne);
@@ -121,7 +121,7 @@ if(isset($_POST['SEND'])) {
                 <div class="container">
                     <div class="section-header">
                      
-                        <h2 class="text-warning">Find Your Answer / Send Message</h2>
+                        <h2 class="text-warning">FAQ / Send Message</h2>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -130,60 +130,79 @@ if(isset($_POST['SEND'])) {
                                     <div class="card">
                                         <div class="card-header">
                                             <a class="card-link collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="true">
-                                                <span>1</span> Lorem ipsum dolor sit amet?
+                                                <span>1</span> Do you offer different cleaning packages and costs?
                                             </a>
                                         </div>
                                         <div id="collapseOne" class="collapse show" data-parent="#accordion">
                                             <div class="card-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
+                                            Yes, we have a variety of package options. Whether you want a one-time clean or a recurring professional cleaning service, we have the right package for you! 
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card">
                                         <div class="card-header">
                                             <a class="card-link" data-toggle="collapse" href="#collapseTwo">
-                                                <span>2</span> Lorem ipsum dolor sit amet?
+                                                <span>2</span> Can my pet stay home during the clean?
                                             </a>
                                         </div>
                                         <div id="collapseTwo" class="collapse" data-parent="#accordion">
                                             <div class="card-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
+                                            Yes - find a good spot for your pets so they’re safe and secure while we clean. Please pick up any animal feces prior to your cleaning.
+                                                
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="card">
                                         <div class="card-header">
                                             <a class="card-link" data-toggle="collapse" href="#collapseThree">
-                                                <span>3</span> Lorem ipsum dolor sit amet?
+                                                <span>3</span> What if I need to reschedule?
                                             </a>
                                         </div>
                                         <div id="collapseThree" class="collapse" data-parent="#accordion">
                                             <div class="card-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
+                                            Life Happens. We get it. Please let us know two business days prior to your scheduled appointment and we will do our best to work you into another day/time. Last minute cancellations may incur a fee according to your local Two Maids location policies.
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a class="card-link" data-toggle="collapse" href="#collapseFour">
+                                                <span>4</span> What if someone gets hurt in my home?
+                                            </a>
+                                        </div>
+                                        <div id="collapseFour" class="collapse" data-parent="#accordion">
+                                            <div class="card-body">
+                                            Ace Cleaners  allows  you to experience peace of mind. Any on the job injuries will be covered by the staff.
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card">
                                         <div class="card-header">
-                                            <a class="card-link" data-toggle="collapse" href="#collapseFour">
-                                                <span>4</span> Lorem ipsum dolor sit amet?
+                                            <a class="card-link" data-toggle="collapse" href="#collapseFive">
+                                                <span bg->5</span> Do I have to be home when you come clean?
                                             </a>
                                         </div>
-                                        <div id="collapseFour" class="collapse" data-parent="#accordion">
+                                        <div id="collapseFive" class="collapse" data-parent="#accordion">
                                             <div class="card-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
+                                            Nope! It is not necessary for you to be present while your team of professional house cleaners provides your cleaning service. In fact, the majority of our customers are not at home while we clean.
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card">
                                         <div class="card-header">
-                                            <a class="card-link" data-toggle="collapse" href="#collapseFour">
-                                                <span>5</span> Lorem ipsum dolor sit amet?
+                                            <a class="card-link" data-toggle="collapse" href="#collapseSix">
+                                                <span>6</span> What if something is broken during my cleaning?
                                             </a>
                                         </div>
-                                        <div id="collapseFour" class="collapse" data-parent="#accordion">
+                                        <div id="collapseSix" class="collapse" data-parent="#accordion">
                                             <div class="card-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
+
+                                            At Ace Cleaners, your home will be treated with the utmost care. In the event of an accident occurring, we will do our best to repair or replace and the damage we cause. All our PHC’s are fully licensed, bonded, and insured to protect you against any worse case scenarios.
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -195,19 +214,19 @@ if(isset($_POST['SEND'])) {
                                 <form method="POST">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" name="name" placeholder="Your Name" required="required" />
+                                            <input type="text" class="form-control" name="name" placeholder="NAME" required="required" />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="email" class="form-control" name="email" placeholder="Your Email" required="required" />
+                                            <input type="email" class="form-control" name="email" placeholder="EMAIL" required="required" />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="subject" placeholder="Subject" required="required" />
+                                        <input type="text" class="form-control" name="subject" placeholder="SUBJECT" required="required" />
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="6"  name="message" placeholder="Message" required="required" ></textarea>
+                                        <textarea class="form-control" rows="6"  name="message" placeholder="MESSAGE" required="required" ></textarea>
                                     </div>
-                                    <div><button class="btn" type="submit" name="SEND">SEND</button></div>
+                                    <div><button class="btn btn-primary" type="submit" name="SEND">SEND</button></div>
                                 </form>
                             </div>
                         </div>

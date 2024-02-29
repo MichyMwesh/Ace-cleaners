@@ -91,29 +91,43 @@ if (isset($_POST['submit'])) {
     $schedule = $_POST["schedule"];
     $rooms = $_POST["rooms"];
     $bathrooms = $_POST["bathroom"];
+function validMobileNumber($number) {
+    $regex = '/^07[0-9]{8}$/';
+    $isValid = filter_var($number, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => $regex]]);
+    return $isValid !== false;
+}
+$isValid = validMobileNumber($number);
 
+if ($isValid == 0) {
+   echo "<script>alert('Invalid phone number');</script>";
+}
+
+else{ 
+    echo $isValid;   
     // SQL query to insert data into the 'category' table
     $query = "INSERT INTO category (name, email, number, service, county, schedule, rooms, bathrooms) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     // Initialize and prepare a statement
     $stmt = mysqli_stmt_init($conne);
 
-    if (mysqli_stmt_prepare($stmt, $query)) {
+   if (mysqli_stmt_prepare($stmt, $query)) {
+    
         // Bind parameters and execute the statement
-        mysqli_stmt_bind_param($stmt, "ssssssss", $name, $email, $number, $service, $county, $schedule, $rooms, $bathrooms);
+        /*mysqli_stmt_bind_param($stmt, "ssssssss", $name, $email, $number, $service, $county, $schedule, $rooms, $bathrooms);
         mysqli_stmt_execute($stmt);
 
         // Close the statement
         mysqli_stmt_close($stmt);
 
         // Display success message using JavaScript
-        echo "<script>alert('Data has been  submitted successfully!');</script>";
+        echo "<script>alert('Data has been  submitted successfully!');</script>";*/
 } 
 else {
         // Display an error message if the statement preparation fails
         echo "<script>alert('Error: Unable to prepare SQL statement.');</script>";
         echo mysqli_error($conne);
     }
+}
 }
 ?>
 
@@ -140,15 +154,7 @@ else {
                                             input.value= input.value.replace(regex, "");
                                         }
                                     </script>
-   
-   <script>
-                  function validMobileNumber(number) {
-                 let regex = /((07)|((\+|00)447)){1}[0-9]{9}\b/,
-                 result = regex.test(number);
-                console.log(number, result);
-                   return result;
-}
-              </script> 
+
 
 
 

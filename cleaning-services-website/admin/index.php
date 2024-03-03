@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <title>ACE CLEANERS</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Cleaning Company Website Template" name="keywords">
-        <meta content="Cleaning Company Website Template" name="description">
+        <meta content="Cleaning Company Website " name="keywords">
+        <meta content="Cleaning Company Website " name="description">
 
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
@@ -112,15 +112,15 @@ else{
 
    if (mysqli_stmt_prepare($stmt, $query)) {
     
-        // Bind parameters and execute the statement
-        /*mysqli_stmt_bind_param($stmt, "ssssssss", $name, $email, $number, $service, $county, $schedule, $rooms, $bathrooms);
+         //Bind parameters and execute the statement
+        mysqli_stmt_bind_param($stmt, "ssssssss", $name, $email, $number, $service, $county, $schedule, $rooms, $bathrooms);
         mysqli_stmt_execute($stmt);
 
         // Close the statement
         mysqli_stmt_close($stmt);
 
         // Display success message using JavaScript
-        echo "<script>alert('Data has been  submitted successfully!');</script>";*/
+        echo "<script>alert('Data has been  submitted successfully!');</script>";
 } 
 else {
         // Display an error message if the statement preparation fails
@@ -172,6 +172,7 @@ else {
                                             <option value="2">Dishes Cleaning</option>
                                             <option value="3">Clothes  Cleaning</option>
                                             <option value="3">Carpet Cleaning</option>
+                                            <option value="3">Beddings</option>
                                         </select>
                                     </div>
 

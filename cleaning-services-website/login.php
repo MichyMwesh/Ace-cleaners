@@ -115,7 +115,7 @@ if (isset($_POST['LOGIN'])) {
                 // Password is correct, redirect to success page
                ?>
                <script>
-                location.replace("admin");
+                location.replace("admin/index.php");
                 </script>
                <?php
                 exit();

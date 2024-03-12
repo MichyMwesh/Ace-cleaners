@@ -87,10 +87,12 @@ if (isset($_POST['submit'])) {
     $email = $_POST["email"];
     $number = $_POST["number"];
     $service = $_POST["service"];
-    $county = $_POST["county"];
+    $region = $_POST["region"];
     $schedule = $_POST["schedule"];
     $rooms = $_POST["rooms"];
     $bathrooms = $_POST["bathroom"];
+
+
 function validMobileNumber($number) {
     $regex = '/^07[0-9]{8}$/';
     $isValid = filter_var($number, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => $regex]]);
@@ -105,7 +107,7 @@ if ($isValid == 0) {
 else{ 
     echo $isValid;   
     // SQL query to insert data into the 'category' table
-    $query = "INSERT INTO category (name, email, number, service, county, schedule, rooms, bathrooms) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO category (name, email, number, service, schedule, rooms, bathrooms,region) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     // Initialize and prepare a statement
     $stmt = mysqli_stmt_init($conne);
@@ -113,14 +115,16 @@ else{
    if (mysqli_stmt_prepare($stmt, $query)) {
     
          //Bind parameters and execute the statement
-        mysqli_stmt_bind_param($stmt, "ssssssss", $name, $email, $number, $service, $county, $schedule, $rooms, $bathrooms);
+        mysqli_stmt_bind_param($stmt, "ssssssss", $name, $email, $number, $service, $region, $schedule, $rooms, $bathrooms,);
         mysqli_stmt_execute($stmt);
 
         // Close the statement
         mysqli_stmt_close($stmt);
 
         // Display success message using JavaScript
-        echo "<script>alert('Data has been  submitted successfully!');</script>";
+        echo "<script>alert('Data has been  submitted successfully!');
+        </script>";
+
 } 
 else {
         // Display an error message if the statement preparation fails
@@ -146,7 +150,7 @@ else {
                         <div class="col-md-5">
                             <div class="form">
                                 <h3>Choose A Category</h3>
-                                <form action="#" method="POST" onsubmit="validateMobileNumber()">
+                                <form action="./admin/ind.php" method="POST" onsubmit="validateMobileNumber()">
 
                                     <script>
                                         function lettersOnly(input){
@@ -177,8 +181,8 @@ else {
                                     </div>
 
                                     <div class="control-group">
-                                        <select class="custom-select" name="county">
-                                            <option selected required>Choose A County</option>
+                                        <select class="custom-select" name="region">
+                                            <option selected required>Choose A Region</option>
                                             <option value="Nairobi">Nairobi</option>
                                             <option value="Kajiado">Kajiado</option>
                                             <option value="Kiambu">Kiambu</option>
@@ -229,21 +233,7 @@ else {
                                     </div>
                                
 
-                                    <div class="control-group">
-                                        <select class="custom-select" name="bathroom">
-                                            <option selected required>Choose Number Of Living Rooms</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="3">4</option>
-                                            <option value="3">5</option>
-                                            <option value="3">6</option>
-                                            <option value="3">7</option>
-                                            <option value="3">8</option>
-                                            <option value="3">9</option>
-                                            <option value="3">10</option>
-                                        </select>
-                                    </div>
+                    
 
                                     <div>
                 

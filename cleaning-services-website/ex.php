@@ -153,6 +153,7 @@ if (isset($_POST['signup'])) {
 	
 			<strong>Success!</strong> Your account has been  successfully  
 			created and you can now login.
+            
             <script>
                 location.replace("login.php?success");
                 </script> 

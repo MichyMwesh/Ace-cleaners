@@ -26,7 +26,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body >
     <!-- Header Start -->
     <div class="container-fluid">
         <div class="row">

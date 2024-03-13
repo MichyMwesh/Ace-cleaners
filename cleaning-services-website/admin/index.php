@@ -107,7 +107,7 @@ if ($isValid == 0) {
 else{ 
     echo $isValid;   
     // SQL query to insert data into the 'category' table
-    $query = "INSERT INTO category (name, email, number, service, schedule, rooms, bathrooms,region) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO category (name, email, number, service, schedule, rooms, bathrooms,county) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     // Initialize and prepare a statement
     $stmt = mysqli_stmt_init($conne);
@@ -123,6 +123,7 @@ else{
 
         // Display success message using JavaScript
         echo "<script>alert('Data has been  submitted successfully!');
+        location.replace('/Ace-cleaners/index.php');
         </script>";
 
 } 
@@ -150,7 +151,7 @@ else {
                         <div class="col-md-5">
                             <div class="form">
                                 <h3>Choose A Category</h3>
-                                <form action="./admin/ind.php" method="POST" onsubmit="validateMobileNumber()">
+                                <form action="" method="POST" onsubmit="validateMobileNumber()">
 
                                     <script>
                                         function lettersOnly(input){

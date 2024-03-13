@@ -77,7 +77,7 @@
           <div class="mpesa"><span>Mpesa </span></div>
           <div><span>Paypal</span></div>
           <div><span>Card</span></div>
-        </div>
+        </div>1'
         <div class="media mt-4 pl-2">
           <img src="./images/1200px-M-PESA_LOGO-01.svg.png" class="mr-3" height="75" />
           <div class="media-body">
@@ -87,7 +87,7 @@
         <div class="media mt-3 pl-2">
                           <!--bs5 input-->
 
-            <form class="row g-3" action="./stk_initiate.php" method="POST">
+            <form class="row g-3" action="./cleaning-services-website/darajaapi/stkpsh.php" method="POST">
             
                 <div class="col-12">
                   <label for="inputAddress" class="form-label">Amount</label>
